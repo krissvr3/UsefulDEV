@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UsefulDEV — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  /* Added to ensure anchor targets appear at top below fixed header */
+  :root { --header-offset: 70px; } /* adjust if header taller */
+  [id] { scroll-margin-top: var(--header-offset); }
+  html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <!-- intro audio and click audio -->
+  <audio id="intro-audio" src="audio/audio.mp3" preload="auto"></audio>
+  <audio id="click-audio" src="audio/click.mp3" preload="auto"></audio>
+
+  <div id="balls" aria-hidden="true">
+    <div class="dot-grid"></div>
+    <div class="ball b1"></div>
+    <div class="ball b2"></div>
+    <div class="ball b3"></div>
+    <div class="ball b4"></div>
+    <div class="ball b5"></div>
+  </div>
+
+  <div id="overlay" class="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-inner" role="document">
+      <div class="menu-top">
+        <h1 class="logo">Useful<span>DEV</span></h1>
+        <p class="subtitle">Profesjonalne usługi — boty Discord & strony</p>
+      </div>
+
+      <div class="menu-buttons">
+        <button data-target="about" class="menu-btn">O MNIE</button>
+        <button data-target="offers" class="menu-btn">OFERTY</button>
+        <button data-target="shop" class="menu-btn">SKLEP</button>
+      </div>
+    </div>
+
+    <div id="dev-banner-wrap" class="dev-banner-wrap" aria-hidden="true">
+      <div class="banner-frame">
+        <img id="devbanner" src="images/devbaner.png" alt="devbaner" />
+      </div>
+    </div>
+  </div>
+
+  <button id="back-to-menu" class="back-btn" title="Wróć do menu" aria-label="Wróć do menu">←</button>
+
+  <main id="main-content" class="main" role="main">
+    <section id="about" class="section hidden" aria-labelledby="about">
+      <h2>O mnie</h2>
+      <div class="about-card">
+        <h3>Developer — CEO UsefulDEV</h3>
+        <p class="desc">Cześć — nazywam się Kriss (znany też jako krissvr3) i od 6 lat zawodowo zajmuję się programowaniem. <br><br>W ciągu tych lat przeszedłem przez wiele aspektów tworzenia oprogramowania — od prostych skryptów i narzędzi automatyzujących pracę, przez boty na Discorda, aż po kompletne strony internetowe i integracje między systemami.<br><br>Jako CEO UsefulDEV skupiam się na dostarczaniu rozwiązań, które działają stabilnie, są estetyczne i łatwe w utrzymaniu.<br><br><br><br>Co robię / w czym pomagam:<br><br>- Tworzę zaawansowane boty Discord (moderacja, automaty, economy, integracje z API, systemy ticketów, automatyczne backupy, systemy ról i uprawnień). Boty piszę w JavaScript (Node.js), Pythonie (discord.py/nextcord), C# (DSharpPlus) oraz Lua (w kontekstach skryptów i automatyzacji).<br><br>- Projektuję i rozwijam strony WWW: od prostych landing page'y po wielostronicowe witryny z backendem. Umiejętności obejmują HTML, CSS, JavaScript (front-end), a także integracje z backendem w Pythonie / Node.js / C#.<br><br>- Automatyzacja i skrypty: integruję serwisy, piszę webhooki, tworzą systemy CI/CD i skrypty do zarządzania serwerami/plikami/danymi.<br><br>- Konsultacje techniczne: pomagam w wyborze stosu technologicznego, ocenach bezpieczeństwa prostych systemów i planowaniu architektury.<br><br><br><br>Moje mocne strony:<br><br>- Praktyczne podejście: najpierw działa, potem optymalizuję. Stawiam na czytelny kod i dokumentację.<br><br>- Komunikacja: rozumiem wymagania klienta i potrafię przełożyć je na konkretne zadania techniczne.<br><br>- Design i UX: zwracam uwagę na szczegóły — animacje, responsywność i płynność działania to dla mnie priorytet.<br><br>- Testowanie i stabilność: wdrażam proste testy i mechanizmy odzyskiwania, tak by usługi działały nawet w nietypowych sytuacjach.<br><br><br><br>Przykładowe projekty (skrót):<br><br>- Bot moderacyjny dla społeczności 10k+: komplet narzędzi do moderacji, automatyczne wykrywanie spamu, logi, system ticketów i integracja z zewnętrznym API do analizy wiadomości.<br><br>- Serwis landingowy + integracja płatności: szybka strona sprzedażowa z systemem zamówień kierującym klientów na Discord, integracja webhooków do automatycznej obsługi zamówień.<br><br>- Automaty backupów i narzędzia administracyjne: skrypty uruchamiane w harmonogramie do archiwizacji danych i raportowania statusu usług.<br><br><br><br>Jeżeli chcesz współpracować — napisz na Discordzie (link w ofercie). Chętnie przeanalizuję Twój projekt, zaproponuję plan działań i przybliżony koszt. Pracuję zarówno nad krótkimi zleceniami (szybkie boty, drobne strony), jak i dłuższymi projektami (kompleksowe integracje, obsługa serwerów).</p>
+        <ul class="langs">
+          <li>🧩 C++</li>
+          <li>🟨 JavaScript (JS)</li>
+          <li>🐍 Python</li>
+          <li>🌙 LUA</li>
+          <li>🎯 C#</li>
+          <li>☕ Java</li>
+        </ul>
+        <p class="extra">Specjalizuję się w tworzeniu eleganckich stron HTML oraz botów Discord — wszystko z dbałością o design i animacje. Najedź na napisy, żeby zobaczyć efekt ✨</p>
+      </div>
+    </section>
+
+    <section id="offers" class="section hidden" aria-labelledby="offers">
+      <h2>Oferty</h2>
+      <div class="offers-grid">
+        <div class="pricing-row">
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_mini.png" alt="DISCORD MINI">
+            </div>
+            <div class="price-meta">
+              <div class="title">DISCORD MINI</div>
+              <ul>
+                <li><strong>vCore:</strong> 1</li>
+                <li><strong>RAM:</strong> 256 MiB</li>
+                <li><strong>Dysk:</strong> 1.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">20 PLN <s>30 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD MINI" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_medium.png" alt="DISCORD MEDIUM">
+            </div>
+            <div class="price-meta">
+              <div class="title">DISCORD MEDIUM</div>
+              <ul>
+                <li><strong>vCore:</strong> 2</li>
+                <li><strong>RAM:</strong> 512 MiB</li>
+                <li><strong>Dysk:</strong> 1.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">30 PLN <s>50 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD MEDIUM" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_big.png" alt="DISCORD BIG">
+            
+            <div class="limited-badge" aria-hidden="true">OFERTA LIMITOWANA !</div>
+</div>
+            <div class="price-meta">
+              <div class="title">DISCORD BIG</div>
+              <ul>
+                <li><strong>vCore:</strong> 3</li>
+                <li><strong>RAM:</strong> 1.00 GiB</li>
+                <li><strong>Dysk:</strong> 3.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">50 PLN <s>100 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD BIG" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <a class="offer-card" href="#" id="web-offer" aria-label="Oferta strona internetowa">
+          <div class="offer-title">STRONA INTERNETOWA</div>
+          <p class="offer-desc">Nowoczesne strony HTML z animacjami, responsywne i szybkie. Możliwość integracji z backendem i botami.</p>
+          <div class="offer-actions">
+            <button class="order-btn" data-type="STRONA INTERNETOWA" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="shop" class="section hidden" aria-labelledby="shop">
+      <h2>Sklep / Kontakt</h2>
+      <p>Masz pytania? Dołącz na Discord — kliknij poniżej:</p>
+      <a class="join-btn" href="https://discord.gg/bt5BA67ncj" id="join-discord">Dołącz na Discord</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">by: krissvr3</footer>
+
+  <script src="script.js"></script>
+<script>
+/* Ensure clicking anchor links scrolls target to top accounting for header offset */
+(function(){
+  function offsetScroll(hash){
+    if(!hash) return;
+    try{
+      var id = hash.replace('#','');
+      var el = document.getElementById(id);
+      if(el){
+        var offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')) || 70;
+        var rect = el.getBoundingClientRect();
+        var targetY = window.pageYOffset + rect.top - offset;
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      }
+    }catch(e){ console && console.warn(e); }
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(a){
+      var href = a.getAttribute('href');
+      if(href && href.startsWith('#')){
+        e.preventDefault();
+        offsetScroll(href);
+        history.replaceState(null,'', href);
+      }
+    }
+  }, true);
+  // on load, if url has hash, adjust
+  window.addEventListener('load', function(){ if(location.hash) offsetScroll(location.hash); });
+})();
+</script>
+</body>
+</html>
