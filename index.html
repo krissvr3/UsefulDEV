@@ -152,13 +152,13 @@
   </main>
 
   <!-- Discord floating icon (bottom-left, above the footer) -->
-  <div class="disc-icon-wrap" aria-hidden="false" style="position:fixed;left:12px;bottom:56px;z-index:99999;">
+  <div class="disc-icon-wrap" aria-hidden="false" style="position:fixed;left:12px;bottom:40px;z-index:99999;">
     <a href="https://discord.gg/bt5BA67ncj" target="_blank" rel="noopener noreferrer" aria-label="Dołącz na Discord" title="Dołącz na Discord">
       <!-- try to load external image first; if it fails the inline SVG fallback will be shown -->
-      <img src="images/discicon.png" alt="Discord" style="width:56px;height:56px;border-radius:10px;display:inline-block;" onerror="this.style.display='none'; var f=this.nextElementSibling; if(f) f.style.display='inline-block';" />
-      <span class="discicon-fallback" style="display:none; width:56px; height:56px; vertical-align:middle; display:inline-block;">
+      <img src="images/discicon.png" alt="Discord" style="width:44px;height:44px;border-radius:8px;display:inline-block;object-fit:cover;" onerror="this.style.display='none'; var f=this.nextElementSibling; if(f){ f.style.display='inline-block'; f.querySelector('svg').setAttribute('width','44'); f.querySelector('svg').setAttribute('height','44'); }" />
+      <span class="discicon-fallback" style="display:none; width:44px; height:44px; vertical-align:middle; display:inline-block;">
         <!-- simple chat-bubble SVG as fallback -->
-        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="false" focusable="false">
+        <svg width="44" height="44" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="false" focusable="false">
           <defs>
             <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
               <stop offset="0" stop-color="#7b3bff" />
@@ -175,7 +175,7 @@
     </a>
   </div>
 
-  <footer class="site-footer">by: krissvr3</footer>by: krissvr3</footer>
+  <footer class="site-footer">by: krissvr3</footer>by: krissvr3</footer>by: krissvr3</footer>
 
   <script src="script.js"></script>
 <script>
