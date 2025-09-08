@@ -17,17 +17,19 @@
   .badge {
     position: absolute !important;
     top: 10px !important;
-    right: 10px !important;
+    left: 10px !important;
+    right: auto !important;
     padding: 6px 10px !important;
     border-radius: 12px !important;
     font-weight: 700 !important;
     font-size: 0.85rem !important;
     line-height: 1 !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.18) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
     z-index: 9999 !important;
     white-space: nowrap !important;
-    transform-origin: 100% 0% !important;
+    transform-origin: 0% 0% !important;
     pointer-events: none !important;
+    will-change: transform !important;
   }
   /* existing exclusive/limited badge style (kept similar to original but without exclamation) */
   .limited-badge {
@@ -35,15 +37,24 @@
     color: #fff !important;
     z-index: 9998 !important;
   }
-  /* green "popular" badge */
+  /* green "popular" badge: moved to left, tilted left and floating animation */
   .badge-popular {
     background: linear-gradient(135deg,#52c41a,#239a0b) !important;
     color: #fff !important;
+    transform: translateY(0) rotate(-12deg) !important;
+    animation: floaty 3s ease-in-out infinite !important;
+  }
+
+  @keyframes floaty {
+    0% { transform: translateY(0) rotate(-12deg); }
+    50% { transform: translateY(-10px) rotate(-12deg); }
+    100% { transform: translateY(0) rotate(-12deg); }
   }
 
   /* small-screen tweak */
   @media (max-width: 480px){
-    .badge { font-size: 0.75rem !important; padding: 5px 8px !important; top: 8px !important; right: 8px !important; }
+    .badge { font-size: 0.75rem !important; padding: 5px 8px !important; top: 8px !important; left: 8px !important; }
+  }
   }
   }
   </style>
