@@ -209,5 +209,56 @@
   window.addEventListener('load', function(){ if(location.hash) offsetScroll(location.hash); });
 })();
 </script>
+<script>
+(function(){
+  function ensureDiscIcon(){
+    try{
+      if(document.querySelector('.disc-icon-wrap')) return;
+      var wrap=document.createElement('div');
+      wrap.className='disc-icon-wrap';
+      wrap.setAttribute('aria-hidden','false');
+      wrap.style.position='fixed';
+      wrap.style.left='12px';
+      wrap.style.bottom='40px';
+      wrap.style.zIndex='99999';
+
+      var a=document.createElement('a');
+      a.href='https://discord.gg/bt5BA67ncj';
+      a.target='_blank';
+      a.rel='noopener noreferrer';
+      a.title='Dołącz na Discord';
+
+      var img=document.createElement('img');
+      img.src='images/discicon.png';
+      img.alt='Discord';
+      img.style.width='44px';
+      img.style.height='44px';
+      img.style.borderRadius='8px';
+      img.style.objectFit='cover';
+      img.style.display='inline-block';
+      img.onerror=function(){
+        img.style.display='none';
+        if(!wrap.querySelector('svg')){
+          var ns='http://www.w3.org/2000/svg';
+          var svg=document.createElementNS(ns,'svg');
+          svg.setAttribute('width','44');
+          svg.setAttribute('height','44');
+          svg.setAttribute('viewBox','0 0 56 56');
+          svg.innerHTML='<defs><linearGradient id="g2" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#7b3bff"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs><rect rx="10" width="56" height="56" fill="url(#g2)"/><path d="M18 20c1.7-2 4-3 7-3s5.3 1 7 3c-2 1.5-3.8 2.3-7 2.3S20 21.5 18 20z" fill="#fff" opacity="0.95"/><circle cx="24" cy="26" r="2.5" fill="#fff"/><circle cx="36" cy="26" r="2.5" fill="#fff"/>';
+          wrap.appendChild(svg);
+        }
+      };
+
+      a.appendChild(img);
+      wrap.appendChild(a);
+      document.body.appendChild(wrap);
+      console.log('disc icon injected');
+    }catch(e){console.warn('failed inject disc icon',e)}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ensureDiscIcon);
+  else ensureDiscIcon();
+})();
+</script>
+
 </body>
 </html>
