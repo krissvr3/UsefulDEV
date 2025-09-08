@@ -2,28 +2,50 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UsefulDEV — Portfolio</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="/images/iconweb.png" sizes="32x32">
+  <link rel="shortcut icon" href="/images/iconweb.png">
+
   <link rel="stylesheet" href="styles.css">
-<link rel="icon" type="image/png" href="/images/iconweb.png">
+
   <style>
-  /* anchor offset helper kept inline for reliability */
-  :root { --header-offset: 70px; }
-  [id] { scroll-margin-top: var(--header-offset); }
-  html { scroll-behavior: smooth; }
+    /* anchor offset helper kept inline for reliability */
+    :root { --header-offset: 70px; }
+    [id] { scroll-margin-top: var(--header-offset); }
+    html { scroll-behavior: smooth; }
 
-  /* Force the disc icon wrapper to only show the actual img and hide any extra SVG/fallbacks */
-  .disc-icon-wrap { pointer-events: auto; }
-  .disc-icon-wrap img { display: block !important; width:44px !important; height:44px !important; border-radius:8px !important; }
-  .disc-icon-wrap svg, .disc-icon-wrap .discicon-fallback, .disc-icon-wrap > *:not(a), .disc-icon-wrap a > *:not(img) { display: none !important; }
+    /* Force the disc icon wrapper to only show the actual img and hide any extra SVG/fallbacks */
+    .disc-icon-wrap { pointer-events: auto; }
+    .disc-icon-wrap img { display: block !important; width:44px !important; height:44px !important; border-radius:8px !important; object-fit:cover; }
+    .disc-icon-wrap svg,
+    .disc-icon-wrap .discicon-fallback,
+    .disc-icon-wrap > *:not(a),
+    .disc-icon-wrap a > *:not(img) { display: none !important; }
 
-  /* If some other element elsewhere is showing a large square, hide any element with the specific fallback gradient ids we used earlier */
-  svg defs linearGradient[id^="g"] { display: none !important; }
+    /* If some other element elsewhere is showing a large square, hide any element with the specific fallback gradient ids we used earlier */
+    svg defs linearGradient[id^="g"] { display: none !important; }
 
-</style>
+    /* small accessible skip link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px 12px;
+      z-index: 1000;
+    }
+    .skip-link:focus { top: 8px; }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Przejdź do treści</a>
+
   <!-- intro audio and click audio -->
   <audio id="intro-audio" src="audio/audio.mp3" preload="auto"></audio>
   <audio id="click-audio" src="audio/click.mp3" preload="auto"></audio>
@@ -41,7 +63,7 @@
     <div class="overlay-inner" role="document">
       <div class="menu-top">
         <h1 class="logo">Useful<span>DEV</span></h1>
-        <p class="subtitle">Profesjonalne usługi — boty Discord & strony</p>
+        <p class="subtitle">Profesjonalne usługi — boty Discord &amp; strony</p>
       </div>
 
       <div class="menu-buttons">
@@ -53,7 +75,7 @@
 
     <div id="dev-banner-wrap" class="dev-banner-wrap" aria-hidden="true">
       <div class="banner-frame">
-        <img id="devbanner" src="images/devbaner.png" alt="devbaner" />
+        <img id="devbanner" src="images/devbaner.png" alt="Devbaner" />
       </div>
     </div>
   </div>
@@ -61,12 +83,12 @@
   <button id="back-to-menu" class="back-btn" title="Wróć do menu" aria-label="Wróć do menu">←</button>
 
   <main id="main-content" class="main" role="main">
-    <section id="about" class="section hidden" aria-labelledby="about">
-      <h2>O mnie</h2>
+    <section id="about" class="section hidden" aria-labelledby="about-title">
+      <h2 id="about-title">O mnie</h2>
       <div class="about-card">
         <h3>Developer — CEO UsefulDEV</h3>
         <p class="desc">Cześć — nazywam się Krzysztof (znany jako KrisS) i od 6 lat zawodowo zajmuję się programowaniem. <br><br>W ciągu tych lat przeszedłem przez wiele aspektów tworzenia oprogramowania — od prostych skryptów i narzędzi automatyzujących pracę, przez boty na Discorda, aż po kompletne strony internetowe i integracje między systemami.<br><br>Jako CEO UsefulDEV skupiam się na dostarczaniu rozwiązań, które działają stabilnie, są estetyczne i łatwe w utrzymaniu.<br><br><br><br>Co robię / w czym pomagam:<br><br>- Tworzę zaawansowane boty Discord (moderacja, automaty, economy, integracje z API, systemy ticketów, automatyczne backupy, systemy ról i uprawnień). Boty piszę w JavaScript (Node.js), Pythonie (discord.py/nextcord), C# (DSharpPlus) oraz Lua (w kontekstach skryptów i automatyzacji).<br><br>- Projektuję i rozwijam strony WWW: od prostych landing page'y po wielostronicowe witryny z backendem. Umiejętności obejmują HTML, CSS, JavaScript (front-end), a także integracje z backendem w Pythonie / Node.js / C#.<br><br>- Automatyzacja i skrypty: integruję serwisy, piszę webhooki, tworzą systemy CI/CD i skrypty do zarządzania serwerami/plikami/danymi.<br><br>- Konsultacje techniczne: pomagam w wyborze stosu technologicznego, ocenach bezpieczeństwa prostych systemów i planowaniu architektury.<br><br><br><br>Moje mocne strony:<br><br>- Praktyczne podejście: najpierw działa, potem optymalizuję. Stawiam na czytelny kod i dokumentację.<br><br>- Komunikacja: rozumiem wymagania klienta i potrafię przełożyć je na konkretne zadania techniczne.<br><br>- Design i UX: zwracam uwagę na szczegóły — animacje, responsywność i płynność działania to dla mnie priorytet.<br><br>- Testowanie i stabilność: wdrażam proste testy i mechanizmy odzyskiwania, tak by usługi działały nawet w nietypowych sytuacjach.<br><br><br><br>Przykładowe projekty (skrót):<br><br>- Bot moderacyjny dla społeczności 10k+: komplet narzędzi do moderacji, automatyczne wykrywanie spamu, logi, system ticketów i integracja z zewnętrznym API do analizy wiadomości.<br><br>- Serwis landingowy + integracja płatności: szybka strona sprzedażowa z systemem zamówień kierującym klientów na Discord, integracja webhooków do automatycznej obsługi zamówień.<br><br>- Automaty backupów i narzędzia administracyjne: skrypty uruchamiane w harmonogramie do archiwizacji danych i raportowania statusu usług.<br><br><br><br>Jeżeli chcesz współpracować — napisz na Discordzie (link w ofercie). Chętnie przeanalizuję Twój projekt, zaproponuję plan działań i przybliżony koszt. Pracuję zarówno nad krótkimi zleceniami (szybkie boty, drobne strony), jak i dłuższymi projektami (kompleksowe integracje, obsługa serwerów).</p>
-        <ul class="langs">
+        <ul class="langs" aria-hidden="false">
           <li>🧩 C++</li>
           <li>🟨 JavaScript (JS)</li>
           <li>🐍 Python</li>
@@ -78,11 +100,10 @@
       </div>
     </section>
 
-    <section id="offers" class="section hidden" aria-labelledby="offers">
-      <h2>Oferty</h2>
+    <section id="offers" class="section hidden" aria-labelledby="offers-title">
+      <h2 id="offers-title">Oferty</h2>
       <div class="offers-grid">
         <div class="pricing-row">
-
           <!-- DISCORD MINI (POPULAR) -->
           <article class="price-card">
             <div class="img-wrap">
@@ -97,7 +118,8 @@
                 <li><strong>Dysk:</strong> 1.00 GiB</li>
                 <li><strong>Ilość DB:</strong> 1</li>
               </ul>
-              <div class="price-row"><span class="price">20 PLN <s>30 PLN</s></span>
+              <div class="price-row">
+                <span class="price">20 PLN <s>30 PLN</s></span>
                 <button class="order-btn" data-type="DISCORD MINI" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
               </div>
             </div>
@@ -116,7 +138,8 @@
                 <li><strong>Dysk:</strong> 1.00 GiB</li>
                 <li><strong>Ilość DB:</strong> 1</li>
               </ul>
-              <div class="price-row"><span class="price">30 PLN <s>50 PLN</s></span>
+              <div class="price-row">
+                <span class="price">30 PLN <s>50 PLN</s></span>
                 <button class="order-btn" data-type="DISCORD MEDIUM" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
               </div>
             </div>
@@ -136,12 +159,12 @@
                 <li><strong>Dysk:</strong> 3.00 GiB</li>
                 <li><strong>Ilość DB:</strong> 1</li>
               </ul>
-              <div class="price-row"><span class="price">50 PLN <s>100 PLN</s></span>
+              <div class="price-row">
+                <span class="price">50 PLN <s>100 PLN</s></span>
                 <button class="order-btn" data-type="DISCORD BIG" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
               </div>
             </div>
           </article>
-
         </div>
 
         <a class="offer-card" href="#" id="web-offer" aria-label="Oferta strona internetowa">
@@ -154,10 +177,10 @@
       </div>
     </section>
 
-    <section id="shop" class="section hidden" aria-labelledby="shop">
-      <h2>Sklep / Kontakt</h2>
+    <section id="shop" class="section hidden" aria-labelledby="shop-title">
+      <h2 id="shop-title">Sklep / Kontakt</h2>
       <p>Masz pytania? Dołącz na Discord — kliknij poniżej:</p>
-      <a class="join-btn" href="https://discord.gg/bt5BA67ncj" id="join-discord">Dołącz na Discord</a>
+      <a class="join-btn" href="https://discord.gg/bt5BA67ncj" id="join-discord" target="_blank" rel="noopener noreferrer">Dołącz na Discord</a>
     </section>
   </main>
 
@@ -168,8 +191,8 @@
     </a>
   </div>
 
-  <footer class="site-footer">by: krissvr3</footer>by: krissvr3</footer>by: krissvr3</footer>
+  <footer class="site-footer" role="contentinfo">by: krissvr3</footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
