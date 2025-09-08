@@ -13,35 +13,38 @@
   html { scroll-behavior: smooth; }
 
   /* badge styles for offer labels */
-  .img-wrap { position: relative; overflow: hidden; }
+  .img-wrap { position: relative !important; overflow: visible !important; }
   .badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 6px 10px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    line-height: 1;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
-    z-index: 5;
-    white-space: nowrap;
-    transform-origin: 100% 0%;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    padding: 6px 10px !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18) !important;
+    z-index: 9999 !important;
+    white-space: nowrap !important;
+    transform-origin: 100% 0% !important;
+    pointer-events: none !important;
   }
   /* existing exclusive/limited badge style (kept similar to original but without exclamation) */
   .limited-badge {
-    background: linear-gradient(135deg,#ff6b6b,#ff4d4d);
-    color: #fff;
+    background: linear-gradient(135deg,#ff6b6b,#ff4d4d) !important;
+    color: #fff !important;
+    z-index: 9998 !important;
   }
   /* green "popular" badge */
   .badge-popular {
-    background: linear-gradient(135deg,#52c41a,#239a0b);
-    color: #fff;
+    background: linear-gradient(135deg,#52c41a,#239a0b) !important;
+    color: #fff !important;
   }
 
   /* small-screen tweak */
   @media (max-width: 480px){
-    .badge { font-size: 0.75rem; padding: 5px 8px; top: 8px; right: 8px; }
+    .badge { font-size: 0.75rem !important; padding: 5px 8px !important; top: 8px !important; right: 8px !important; }
+  }
   }
   </style>
 </head>
