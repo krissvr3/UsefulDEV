@@ -170,5 +170,40 @@
   <footer class="site-footer">by: krissvr3</footer>by: krissvr3</footer>by: krissvr3</footer>
 
   <script src="script.js"></script>
+
+  <!-- DODANY SKRYPT: potwierdzenie przed przejściem do Discord dla każdego "ZAMÓW TERAZ" -->
+  <script>
+  (function(){
+    // Wyłap wszystkie przyciski zamówienia
+    const orderButtons = document.querySelectorAll('button.order-btn');
+    if(!orderButtons || orderButtons.length === 0) return;
+
+    orderButtons.forEach(btn => {
+      // używamy capture oraz stopImmediatePropagation aby zapobiec nadpisaniu przez inne handlery
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+
+        const link = btn.dataset.link || btn.getAttribute('data-link') || null;
+        const type = btn.dataset.type || btn.getAttribute('data-type') || '';
+
+        const msg = type
+          ? `Czy na pewno chcesz zamówić "${type}"?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`
+          : `Czy na pewno chcesz zamówić?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`;
+
+        if(confirm(msg)){
+          if(link && link !== '#'){
+            // otwórz w nowej karcie
+            window.open(link, '_blank', 'noopener');
+          } else {
+            // fallback: jeśli brak linku, pokaż komunikat (debug)
+            alert('Brak ustawionego linku do Discorda dla tego przycisku.');
+          }
+        }
+      }, { capture: true });
+    });
+  })();
+  </script>
 </body>
 </html>
