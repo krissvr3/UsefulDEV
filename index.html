@@ -7,67 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-  /* Added to ensure anchor targets appear at top below fixed header */
-  :root { --header-offset: 70px; } /* adjust if header taller */
+  /* anchor offset helper kept inline for reliability */
+  :root { --header-offset: 70px; }
   [id] { scroll-margin-top: var(--header-offset); }
   html { scroll-behavior: smooth; }
-
-  /* badge styles for offer labels */
-  .img-wrap { position: relative !important; overflow: visible !important; }
-  .badge {
-    position: absolute !important;
-    top: 10px !important;
-    left: 10px !important;
-    right: auto !important;
-    padding: 6px 10px !important;
-    border-radius: 12px !important;
-    font-weight: 700 !important;
-    font-size: 0.85rem !important;
-    line-height: 1 !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
-    z-index: 9999 !important;
-    white-space: nowrap !important;
-    transform-origin: 0% 0% !important;
-    pointer-events: none !important;
-    will-change: transform !important;
-  }
-  /* existing exclusive/limited badge style (kept similar to original but without exclamation) */
-  .limited-badge {
-    background: linear-gradient(135deg,#ff6b6b,#ff4d4d) !important;
-    color: #fff !important;
-    z-index: 9998 !important;
-  }
-  /* green "popular" badge: moved to left, tilted left and floating animation */
-  .badge-popular {
-    background: linear-gradient(135deg,#52c41a,#239a0b) !important;
-    color: #fff !important;
-    transform: translateY(0) rotate(-12deg) !important;
-    animation: floaty 3s ease-in-out infinite !important;
-  }
-
-  @keyframes floaty {
-    0% { transform: translateY(0) rotate(-12deg); }
-    50% { transform: translateY(-10px) rotate(-12deg); }
-    100% { transform: translateY(0) rotate(-12deg); }
-  }
-
-  /* small-screen tweak */
-  @media (max-width: 480px){
-    .badge { font-size: 0.75rem !important; padding: 5px 8px !important; top: 8px !important; left: 8px !important; }
-  }
-  }
-  }
-  
-/* disc icon bottom-left */
-  .disc-icon-wrap { position: fixed; left: 12px; bottom: 64px; z-index: 10000; }
-  .disc-icon-wrap a img { width: 56px; height: 56px; display: block; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); transition: transform .18s ease, box-shadow .18s ease; }
-  .disc-icon-wrap a:hover img { transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 30px rgba(0,0,0,0.32); }
-
-  @media (max-width: 480px) {
-    .disc-icon-wrap { left: 10px; bottom: 78px; }
-    .disc-icon-wrap a img { width: 44px; height: 44px; }
-  }
-</style>
+  </style>
 </head>
 <body>
   <!-- intro audio and click audio -->
@@ -128,10 +72,12 @@
       <h2>Oferty</h2>
       <div class="offers-grid">
         <div class="pricing-row">
+
+          <!-- DISCORD MINI (POPULAR) -->
           <article class="price-card">
-            <div class="img-wrap" style="position:relative;overflow:visible;">
+            <div class="img-wrap">
               <img src="images/discord_mini.png" alt="DISCORD MINI">
-              <div class="badge badge-popular" aria-hidden="true" style="position:absolute;left:10px;top:10px;z-index:9999;transform:translateY(0) rotate(-12deg);animation:floaty 3s ease-in-out infinite;pointer-events:none;will-change:transform;font-weight:700;padding:6px 10px;border-radius:12px;">POPULARNE🔥</div>
+              <div class="badge badge-popular" aria-hidden="true">POPULARNE🔥</div>
             </div>
             <div class="price-meta">
               <div class="title">DISCORD MINI</div>
@@ -147,6 +93,7 @@
             </div>
           </article>
 
+          <!-- DISCORD MEDIUM -->
           <article class="price-card">
             <div class="img-wrap">
               <img src="images/discord_medium.png" alt="DISCORD MEDIUM">
@@ -165,12 +112,12 @@
             </div>
           </article>
 
+          <!-- DISCORD BIG (EXCLUSIVE) -->
           <article class="price-card">
             <div class="img-wrap">
               <img src="images/discord_big.png" alt="DISCORD BIG">
-            
-            <div class="limited-badge" aria-hidden="true">OFERTA EKSKLUZYWNA</div>
-</div>
+              <div class="limited-badge" aria-hidden="true">OFERTA EKSKLUZYWNA</div>
+            </div>
             <div class="price-meta">
               <div class="title">DISCORD BIG</div>
               <ul>
@@ -184,6 +131,7 @@
               </div>
             </div>
           </article>
+
         </div>
 
         <a class="offer-card" href="#" id="web-offer" aria-label="Oferta strona internetowa">
@@ -203,6 +151,7 @@
     </section>
   </main>
 
+  <!-- Discord floating icon (bottom-left, above the footer) -->
   <div class="disc-icon-wrap" aria-hidden="false">
     <a href="https://discord.gg/bt5BA67ncj" target="_blank" rel="noopener noreferrer" aria-label="Dołącz na Discord">
       <img src="images/discicon.png" alt="Discord" />
