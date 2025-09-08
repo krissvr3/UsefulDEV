@@ -171,38 +171,54 @@
 
   <script src="script.js"></script>
 
-  <!-- DODANY SKRYPT: potwierdzenie przed przejściem do Discord dla każdego "ZAMÓW TERAZ" -->
+  <!-- DODANY SKRYPT: potwierdzenie przed przejściem do Discord dla każdego "ZAMÓW TERAZ"  -->
   <script>
   (function(){
-    // Wyłap wszystkie przyciski zamówienia
+    // 1) Handler dla przycisków zamówienia: pokazuje confirm i otwiera data-link
     const orderButtons = document.querySelectorAll('button.order-btn');
-    if(!orderButtons || orderButtons.length === 0) return;
+    if(orderButtons && orderButtons.length > 0){
+      orderButtons.forEach(btn => {
+        btn.addEventListener('click', function(e){
+          // Zapobiegamy defaultom i propagacji (chronimy się przed innymi handlerami)
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          e.stopPropagation();
 
-    orderButtons.forEach(btn => {
-      // używamy capture oraz stopImmediatePropagation aby zapobiec nadpisaniu przez inne handlery
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        e.stopPropagation();
+          const link = btn.dataset.link || btn.getAttribute('data-link') || null;
+          const type = btn.dataset.type || btn.getAttribute('data-type') || '';
 
-        const link = btn.dataset.link || btn.getAttribute('data-link') || null;
-        const type = btn.dataset.type || btn.getAttribute('data-type') || '';
+          const msg = type
+            ? `Czy na pewno chcesz zamówić "${type}"?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`
+            : `Czy na pewno chcesz zamówić?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`;
 
-        const msg = type
-          ? `Czy na pewno chcesz zamówić "${type}"?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`
-          : `Czy na pewno chcesz zamówić?\nPo potwierdzeniu zostaniesz przekierowany(a) na Discord.`;
-
-        if(confirm(msg)){
-          if(link && link !== '#'){
-            // otwórz w nowej karcie
-            window.open(link, '_blank', 'noopener');
-          } else {
-            // fallback: jeśli brak linku, pokaż komunikat (debug)
-            alert('Brak ustawionego linku do Discorda dla tego przycisku.');
+          if(confirm(msg)){
+            if(link && link !== '#'){
+              window.open(link, '_blank', 'noopener');
+            } else {
+              alert('Brak ustawionego linku do Discorda dla tego przycisku.');
+            }
           }
+        }, { capture: true });
+      });
+    }
+
+    // 2) Globalny handler (capture) który blokuje nawigację kotwic (#) jeśli klik następuje z wnętrza .order-btn
+    document.addEventListener('click', function(e){
+      // jeśli kliknięcie pochodzi z elementu wewnątrz .order-btn — przerwij ewentualną nawigację anchorów rodziców
+      const clickedOrderBtn = e.target && e.target.closest ? e.target.closest('.order-btn') : null;
+      if(!clickedOrderBtn) return;
+
+      const parentAnchor = clickedOrderBtn.closest && clickedOrderBtn.closest('a[href]');
+      if(parentAnchor){
+        const href = parentAnchor.getAttribute('href') || '';
+        if(href === '#' || href.trim() === '' || href.startsWith('#')){
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          e.stopPropagation();
         }
-      }, { capture: true });
-    });
+      }
+    }, { capture: true });
+
   })();
   </script>
 </body>
