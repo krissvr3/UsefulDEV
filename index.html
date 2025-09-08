@@ -11,7 +11,16 @@
   :root { --header-offset: 70px; }
   [id] { scroll-margin-top: var(--header-offset); }
   html { scroll-behavior: smooth; }
-  </style>
+
+  /* Force the disc icon wrapper to only show the actual img and hide any extra SVG/fallbacks */
+  .disc-icon-wrap { pointer-events: auto; }
+  .disc-icon-wrap img { display: block !important; width:44px !important; height:44px !important; border-radius:8px !important; }
+  .disc-icon-wrap svg, .disc-icon-wrap .discicon-fallback, .disc-icon-wrap > *:not(a), .disc-icon-wrap a > *:not(img) { display: none !important; }
+
+  /* If some other element elsewhere is showing a large square, hide any element with the specific fallback gradient ids we used earlier */
+  svg defs linearGradient[id^="g"] { display: none !important; }
+
+</style>
 </head>
 <body>
   <!-- intro audio and click audio -->
