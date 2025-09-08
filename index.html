@@ -57,7 +57,17 @@
   }
   }
   }
-  </style>
+  
+/* disc icon bottom-left */
+  .disc-icon-wrap { position: fixed; left: 12px; bottom: 64px; z-index: 10000; }
+  .disc-icon-wrap a img { width: 56px; height: 56px; display: block; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); transition: transform .18s ease, box-shadow .18s ease; }
+  .disc-icon-wrap a:hover img { transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 30px rgba(0,0,0,0.32); }
+
+  @media (max-width: 480px) {
+    .disc-icon-wrap { left: 10px; bottom: 78px; }
+    .disc-icon-wrap a img { width: 44px; height: 44px; }
+  }
+</style>
 </head>
 <body>
   <!-- intro audio and click audio -->
@@ -192,6 +202,12 @@
       <a class="join-btn" href="https://discord.gg/bt5BA67ncj" id="join-discord">Dołącz na Discord</a>
     </section>
   </main>
+
+  <div class="disc-icon-wrap" aria-hidden="false">
+    <a href="https://discord.gg/bt5BA67ncj" target="_blank" rel="noopener noreferrer" aria-label="Dołącz na Discord">
+      <img src="images/discicon.png" alt="Discord" />
+    </a>
+  </div>
 
   <footer class="site-footer">by: krissvr3</footer>
 
