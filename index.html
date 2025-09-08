@@ -3,320 +3,172 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Przykłowa, responsywna i dostępna strona startowa — index.html. Zawiera CSS i JavaScript w jednym pliku." />
-  <meta name="author" content="Twoje Imię" />
-  <title>Przykładowa Strona — index.html</title>
-  <!-- Favicon (możesz podmienić) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8E%3C/text%3E%3C/svg%3E">
-
+  <title>UsefulDEV — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
-    /* Reset minimalny */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+  /* anchor offset helper kept inline for reliability */
+  :root { --header-offset: 70px; }
+  [id] { scroll-margin-top: var(--header-offset); }
+  html { scroll-behavior: smooth; }
 
-    /* Zmienne kolorów (łatwo podmienić) */
-    :root{
-      --bg:#f7f7fb;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --accent:#2563eb;
-      --text:#0f172a;
-      --glass: rgba(255,255,255,0.6);
-      --radius:12px;
-    }
-    .dark{
-      --bg:#0b1220;
-      --card:#071126;
-      --muted:#94a3b8;
-      --accent:#60a5fa;
-      --text:#e6eef8;
-      --glass: rgba(255,255,255,0.04);
-    }
+  /* Force the disc icon wrapper to only show the actual img and hide any extra SVG/fallbacks */
+  .disc-icon-wrap { pointer-events: auto; }
+  .disc-icon-wrap img { display: block !important; width:44px !important; height:44px !important; border-radius:8px !important; }
+  .disc-icon-wrap svg, .disc-icon-wrap .discicon-fallback, .disc-icon-wrap > *:not(a), .disc-icon-wrap a > *:not(img) { display: none !important; }
 
-    /* Layout */
-    .container{max-width:1100px;margin:0 auto;padding:2rem}
-    header{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
-    .brand{display:flex;gap:.75rem;align-items:center}
-    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:inline-grid;place-items:center;color:white;font-weight:700}
-    nav{display:flex;gap:1rem;align-items:center}
-    a{color:var(--text);text-decoration:none}
-    .muted{color:var(--muted)}
+  /* If some other element elsewhere is showing a large square, hide any element with the specific fallback gradient ids we used earlier */
+  svg defs linearGradient[id^="g"] { display: none !important; }
 
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center;padding:2rem 0}
-    .hero-grid{display:grid;gap:1rem}
-    h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.2rem 0}
-    p.lead{margin:0;font-size:1.05rem;color:var(--muted)}
-    .cta{margin-top:1rem;display:flex;gap:.75rem}
-    .btn{background:var(--accent);color:white;padding:.6rem 1rem;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--text)}
-
-    /* Features */
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.25rem}
-    .card{background:var(--card);border-radius:var(--radius);padding:1rem;box-shadow:0 6px 18px rgba(12,20,40,0.06)}
-    .card h3{margin:.2rem 0}
-    .grid-2{display:grid;grid-template-columns:1fr 360px;gap:1.25rem}
-
-    /* Contact / form */
-    form{display:flex;flex-direction:column;gap:.75rem}
-    label{font-size:.9rem}
-    input,textarea,select{padding:.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;color:var(--text)}
-    textarea{min-height:120px;resize:vertical}
-    .small{font-size:.85rem;color:var(--muted)}
-
-    /* Footer */
-    footer{margin-top:2rem;padding:2rem 0;border-top:1px dashed rgba(0,0,0,0.04)}
-
-    /* Mobile menu */
-    .menu-toggle{display:none;border:0;background:transparent;font-size:1rem}
-    @media (max-width:820px){
-      .grid-2{grid-template-columns:1fr}
-      nav{display:none}
-      .menu-toggle{display:inline-block}
-    }
-
-    /* Accessibility focus */
-    a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(99,102,241,0.18);outline-offset:3px}
-
-    /* micro interactions */
-    .logo, .card{transition:transform .18s ease,box-shadow .18s ease}
-    .logo:hover{transform:translateY(-3px)}
-    .card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(12,20,40,0.08)}
-
-  </style>
+</style>
 </head>
 <body>
-  <div id="app" class="container">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden>🌐</div>
-        <div>
-          <div style="font-weight:700">Twoja Marka</div>
-          <div class="small muted">Prosta, szybka i dostępna</div>
-        </div>
-      </div>
+  <!-- intro audio and click audio -->
+  <audio id="intro-audio" src="audio/audio.mp3" preload="auto"></audio>
+  <audio id="click-audio" src="audio/click.mp3" preload="auto"></audio>
 
-      <div>
-        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">☰</button>
-        <nav id="mainNav" aria-label="Główna nawigacja">
-          <a href="#features">Funkcje</a>
-          <a href="#pricing">Cennik</a>
-          <a href="#contact">Kontakt</a>
-          <button class="btn ghost" id="themeToggle" aria-pressed="false">Tryb</button>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-grid">
-          <h1>Świetny start dla Twojego projektu — gotowe index.html</h1>
-          <p class="lead">Responsywna, dostępna i estetyczna strona startowa. Używaj jako szablonu lub edytuj dowolnie — wszystkie style i skrypty są w tym pliku.</p>
-          <div class="cta">
-            <button class="btn" id="discordBtn" type="button" data-href="https://discord.gg/your-invite">Skontaktuj się</button>
-            <a class="btn ghost" href="#features">Zobacz funkcje</a>
-          </div>
-        </div>
-
-        <div class="card" role="img" aria-label="Podgląd strony">
-          <strong>Podgląd</strong>
-          <p class="small muted">Szybki przykład: użyj tego pola do umieszczenia zrzutu ekranu lub widgetu.</p>
-          <div style="margin-top:1rem;background:var(--glass);padding:1rem;border-radius:8px;min-height:140px;display:flex;align-items:center;justify-content:center;color:var(--muted);">
-            Responsive preview
-          </div>
-        </div>
-      </section>
-
-      <section id="features" style="margin-top:1.5rem">
-        <h2>Co zawiera ten plik?</h2>
-        <div class="features">
-          <article class="card">
-            <h3>Dostępność</h3>
-            <p class="small">Kontrast kolorów, fokus klawiaturowy i semantyczna struktura.</p>
-          </article>
-          <article class="card">
-            <h3>Responsywność</h3>
-            <p class="small">Układ dopasowuje się do ekranów mobilnych i desktopów.</p>
-          </article>
-          <article class="card">
-            <h3>Prosty JS</h3>
-            <p class="small">Menu mobilne, tryb ciemny, małe usprawnienia UX bez zależności.</p>
-          </article>
-          <article class="card">
-            <h3>Łatwa edycja</h3>
-            <p class="small">Wszystko w jednym pliku — szybko podmienisz treści i style.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="pricing" style="margin-top:1.5rem">
-        <h2>Cennik (przykład)</h2>
-        <div class="grid-2" style="margin-top:0.75rem">
-          <div>
-            <div class="card">
-              <h3>Basic</h3>
-              <p class="small muted">Idealny do prostych projektów i landingów.</p>
-              <ul class="small" style="margin:.5rem 0;padding-left:1rem">
-                <li>1 strona</li>
-                <li>Podstawowe wsparcie</li>
-              </ul>
-              <div class="small">Cena: <strong>Bezpłatnie</strong></div>
-            </div>
-
-            <div class="card" style="margin-top:1rem">
-              <h3>Pro</h3>
-              <p class="small muted">Dla małych firm i projektów z większymi wymaganiami.</p>
-              <ul class="small" style="margin:.5rem 0;padding-left:1rem">
-                <li>Wiele podstron</li>
-                <li>Formularze, integracje</li>
-              </ul>
-              <div class="small">Cena: <strong>Od 199 PLN</strong></div>
-            </div>
-          </div>
-
-          <aside class="card">
-            <h3>Kontakt</h3>
-            <p class="small muted">Masz pytania? Napisz do nas używając poniższego formularza.</p>
-            <p class="small" style="margin-top:.75rem">Szybka odpowiedź w ciągu 24h (przykład).</p>
-          </aside>
-        </div>
-      </section>
-
-      <section id="contact" style="margin-top:1.5rem">
-        <h2>Skontaktuj się</h2>
-        <div class="card" style="margin-top:.75rem">
-          <form id="contactForm" novalidate>
-            <div>
-              <label for="name">Imię i nazwisko</label>
-              <input id="name" name="name" required placeholder="Jan Kowalski">
-            </div>
-            <div>
-              <label for="email">E‑mail</label>
-              <input id="email" name="email" type="email" required placeholder="twoj@przyklad.pl">
-            </div>
-            <div>
-              <label for="message">Wiadomość</label>
-              <textarea id="message" name="message" required placeholder="Napisz wiadomość..."></textarea>
-            </div>
-            <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem">
-              <button type="submit" class="btn">Wyślij</button>
-              <button type="button" class="btn ghost" id="resetBtn">Wyczyść</button>
-            </div>
-            <div id="formMsg" class="small muted" style="margin-top:.5rem" aria-live="polite"></div>
-          </form>
-        </div>
-      </section>
-
-    </main>
-
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-        <div class="small muted">© "Twoja Marka" — Wszystkie prawa zastrzeżone</div>
-        <div style="display:flex;gap:.75rem">
-          <a class="small muted" href="#">Polityka prywatności</a>
-          <a class="small muted" href="#">Regulamin</a>
-        </div>
-      </div>
-    </footer>
+  <div id="balls" aria-hidden="true">
+    <div class="dot-grid"></div>
+    <div class="ball b1"></div>
+    <div class="ball b2"></div>
+    <div class="ball b3"></div>
+    <div class="ball b4"></div>
+    <div class="ball b5"></div>
   </div>
 
-  <script>
-    // Prosty skrypt: menu mobilne, tryb ciemny, i obsługa formularza (mock)
-    (function(){
-      const root = document.documentElement;
-      const app = document.getElementById('app');
-      const menuToggle = document.getElementById('menuToggle');
-      const mainNav = document.getElementById('mainNav');
-      const themeToggle = document.getElementById('themeToggle');
+  <div id="overlay" class="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-inner" role="document">
+      <div class="menu-top">
+        <h1 class="logo">Useful<span>DEV</span></h1>
+        <p class="subtitle">Profesjonalne usługi — boty Discord & strony</p>
+      </div>
 
-      // Pokaż/ukryj menu mobilne
-      menuToggle && menuToggle.addEventListener('click', ()=>{
-        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        menuToggle.setAttribute('aria-expanded', String(!expanded));
-        if(mainNav.style.display === 'flex' || mainNav.style.display === 'block'){
-          mainNav.style.display = '';
-        } else {
-          mainNav.style.display = 'flex';
-          mainNav.style.flexDirection = 'column';
-          mainNav.style.gap = '0.5rem';
-        }
-      });
+      <div class="menu-buttons">
+        <button data-target="about" class="menu-btn">O MNIE</button>
+        <button data-target="offers" class="menu-btn">OFERTY</button>
+        <button data-target="shop" class="menu-btn">SKLEP</button>
+      </div>
+    </div>
 
-      // Tryb jasny/ciemny (prosty)
-      const stored = localStorage.getItem('theme');
-      if(stored === 'dark') document.body.classList.add('dark');
-      themeToggle && themeToggle.addEventListener('click', ()=>{
-        const isDark = document.body.classList.toggle('dark');
-        themeToggle.setAttribute('aria-pressed', String(isDark));
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      });
+    <div id="dev-banner-wrap" class="dev-banner-wrap" aria-hidden="true">
+      <div class="banner-frame">
+        <img id="devbanner" src="images/devbaner.png" alt="devbaner" />
+      </div>
+    </div>
+  </div>
 
-      // Prostota: smooth scroll dla kotwic (tylko dla href zaczynających się od '#')
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          const href = a.getAttribute('href');
-          if(href.length > 1){
-            e.preventDefault();
-            const el = document.querySelector(href);
-            if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-          }
-        });
-      });
+  <button id="back-to-menu" class="back-btn" title="Wróć do menu" aria-label="Wróć do menu">←</button>
 
-      // Formularz: walidacja i symulacja wysyłki
-      const form = document.getElementById('contactForm');
-      const formMsg = document.getElementById('formMsg');
-      const resetBtn = document.getElementById('resetBtn');
+  <main id="main-content" class="main" role="main">
+    <section id="about" class="section hidden" aria-labelledby="about">
+      <h2>O mnie</h2>
+      <div class="about-card">
+        <h3>Developer — CEO UsefulDEV</h3>
+        <p class="desc">Cześć — nazywam się Kriss (znany też jako krissvr3) i od 6 lat zawodowo zajmuję się programowaniem. <br><br>W ciągu tych lat przeszedłem przez wiele aspektów tworzenia oprogramowania — od prostych skryptów i narzędzi automatyzujących pracę, przez boty na Discorda, aż po kompletne strony internetowe i integracje między systemami.<br><br>Jako CEO UsefulDEV skupiam się na dostarczaniu rozwiązań, które działają stabilnie, są estetyczne i łatwe w utrzymaniu.<br><br><br><br>Co robię / w czym pomagam:<br><br>- Tworzę zaawansowane boty Discord (moderacja, automaty, economy, integracje z API, systemy ticketów, automatyczne backupy, systemy ról i uprawnień). Boty piszę w JavaScript (Node.js), Pythonie (discord.py/nextcord), C# (DSharpPlus) oraz Lua (w kontekstach skryptów i automatyzacji).<br><br>- Projektuję i rozwijam strony WWW: od prostych landing page'y po wielostronicowe witryny z backendem. Umiejętności obejmują HTML, CSS, JavaScript (front-end), a także integracje z backendem w Pythonie / Node.js / C#.<br><br>- Automatyzacja i skrypty: integruję serwisy, piszę webhooki, tworzą systemy CI/CD i skrypty do zarządzania serwerami/plikami/danymi.<br><br>- Konsultacje techniczne: pomagam w wyborze stosu technologicznego, ocenach bezpieczeństwa prostych systemów i planowaniu architektury.<br><br><br><br>Moje mocne strony:<br><br>- Praktyczne podejście: najpierw działa, potem optymalizuję. Stawiam na czytelny kod i dokumentację.<br><br>- Komunikacja: rozumiem wymagania klienta i potrafię przełożyć je na konkretne zadania techniczne.<br><br>- Design i UX: zwracam uwagę na szczegóły — animacje, responsywność i płynność działania to dla mnie priorytet.<br><br>- Testowanie i stabilność: wdrażam proste testy i mechanizmy odzyskiwania, tak by usługi działały nawet w nietypowych sytuacjach.<br><br><br><br>Przykładowe projekty (skrót):<br><br>- Bot moderacyjny dla społeczności 10k+: komplet narzędzi do moderacji, automatyczne wykrywanie spamu, logi, system ticketów i integracja z zewnętrznym API do analizy wiadomości.<br><br>- Serwis landingowy + integracja płatności: szybka strona sprzedażowa z systemem zamówień kierującym klientów na Discord, integracja webhooków do automatycznej obsługi zamówień.<br><br>- Automaty backupów i narzędzia administracyjne: skrypty uruchamiane w harmonogramie do archiwizacji danych i raportowania statusu usług.<br><br><br><br>Jeżeli chcesz współpracować — napisz na Discordzie (link w ofercie). Chętnie przeanalizuję Twój projekt, zaproponuję plan działań i przybliżony koszt. Pracuję zarówno nad krótkimi zleceniami (szybkie boty, drobne strony), jak i dłuższymi projektami (kompleksowe integracje, obsługa serwerów).</p>
+        <ul class="langs">
+          <li>🧩 C++</li>
+          <li>🟨 JavaScript (JS)</li>
+          <li>🐍 Python</li>
+          <li>🌙 LUA</li>
+          <li>🎯 C#</li>
+          <li>☕ Java</li>
+        </ul>
+        <p class="extra">Specjalizuję się w tworzeniu eleganckich stron HTML oraz botów Discord — wszystko z dbałością o design i animacje. Najedź na napisy, żeby zobaczyć efekt ✨</p>
+      </div>
+    </section>
 
-      form && form.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const data = new FormData(form);
-        const name = data.get('name');
-        const email = data.get('email');
-        const message = data.get('message');
-        if(!name || !email || !message){
-          formMsg.textContent = 'Proszę wypełnić wszystkie pola.';
-          return;
-        }
-        formMsg.textContent = 'Wysyłanie...';
-        // Mock async: pokażmy komunikat bez faktycznego wysyłania
-        setTimeout(()=>{
-          formMsg.textContent = 'Dziękujemy! Twoja wiadomość została przesłana (symulacja).';
-          form.reset();
-        },600);
-      });
+    <section id="offers" class="section hidden" aria-labelledby="offers">
+      <h2>Oferty</h2>
+      <div class="offers-grid">
+        <div class="pricing-row">
 
-      resetBtn && resetBtn.addEventListener('click', ()=>{
-        form.reset();
-        formMsg.textContent = '';
-      });
+          <!-- DISCORD MINI (POPULAR) -->
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_mini.png" alt="DISCORD MINI">
+              <div class="badge badge-popular" aria-hidden="true">POPULARNE🔥</div>
+            </div>
+            <div class="price-meta">
+              <div class="title">DISCORD MINI</div>
+              <ul>
+                <li><strong>vCore:</strong> 1</li>
+                <li><strong>RAM:</strong> 256 MiB</li>
+                <li><strong>Dysk:</strong> 1.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">20 PLN <s>30 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD MINI" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
 
-      // Discord / potwierdzenie przejścia - używamy buttona aby uniknąć kolizji z innymi handlerami
-      const discordBtn = document.getElementById('discordBtn');
-      if(discordBtn){
-        discordBtn.addEventListener('click', (e)=>{
-          // Zapobiegamy propagacji i wywołaniu innych handlerów (np. globalnych na linkach)
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          e.stopPropagation();
+          <!-- DISCORD MEDIUM -->
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_medium.png" alt="DISCORD MEDIUM">
+            </div>
+            <div class="price-meta">
+              <div class="title">DISCORD MEDIUM</div>
+              <ul>
+                <li><strong>vCore:</strong> 2</li>
+                <li><strong>RAM:</strong> 512 MiB</li>
+                <li><strong>Dysk:</strong> 1.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">30 PLN <s>50 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD MEDIUM" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
 
-          const href = discordBtn.dataset.href || discordBtn.getAttribute('data-href');
-          if(!href){
-            alert('Brak linku do Discorda — podmień data-href w HTML.');
-            return;
-          }
+          <!-- DISCORD BIG (EXCLUSIVE) -->
+          <article class="price-card">
+            <div class="img-wrap">
+              <img src="images/discord_big.png" alt="DISCORD BIG">
+              <div class="limited-badge" aria-hidden="true">OFERTA EKSKLUZYWNA</div>
+            </div>
+            <div class="price-meta">
+              <div class="title">DISCORD BIG</div>
+              <ul>
+                <li><strong>vCore:</strong> 3</li>
+                <li><strong>RAM:</strong> 1.00 GiB</li>
+                <li><strong>Dysk:</strong> 3.00 GiB</li>
+                <li><strong>Ilość DB:</strong> 1</li>
+              </ul>
+              <div class="price-row"><span class="price">50 PLN <s>100 PLN</s></span>
+                <button class="order-btn" data-type="DISCORD BIG" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+              </div>
+            </div>
+          </article>
 
-          const ok = confirm('Czy chcesz przejść na nasz serwer Discord?
-(Zostaniesz przekierowany/a na stronę zewnętrzną)');
-          if(ok){
-            // Otwiera w nowej karcie
-            window.open(href, '_blank', 'noopener');
-          }
-        }, {capture: true});
-      }
+        </div>
 
-    })();
-  </script>
+        <a class="offer-card" href="#" id="web-offer" aria-label="Oferta strona internetowa">
+          <div class="offer-title">STRONA INTERNETOWA</div>
+          <p class="offer-desc">Nowoczesne strony HTML z animacjami, responsywne i szybkie. Możliwość integracji z backendem i botami.</p>
+          <div class="offer-actions">
+            <button class="order-btn" data-type="STRONA INTERNETOWA" data-link="https://discord.gg/bt5BA67ncj">ZAMÓW TERAZ</button>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="shop" class="section hidden" aria-labelledby="shop">
+      <h2>Sklep / Kontakt</h2>
+      <p>Masz pytania? Dołącz na Discord — kliknij poniżej:</p>
+      <a class="join-btn" href="https://discord.gg/bt5BA67ncj" id="join-discord">Dołącz na Discord</a>
+    </section>
+  </main>
+
+  <!-- Discord floating icon (bottom-left, above the footer) -->
+  <div class="disc-icon-wrap" aria-hidden="false" style="position:fixed;left:12px;bottom:40px;z-index:99999;">
+    <a href="https://discord.gg/bt5BA67ncj" target="_blank" rel="noopener noreferrer" aria-label="Dołącz na Discord" title="Dołącz na Discord">
+      <img src="images/discicon.png" alt="Discord" style="width:44px;height:44px;border-radius:8px;object-fit:cover;display:block;" />
+    </a>
+  </div>
+
+  <footer class="site-footer">by: krissvr3</footer>by: krissvr3</footer>by: krissvr3</footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
