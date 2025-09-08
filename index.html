@@ -11,6 +11,38 @@
   :root { --header-offset: 70px; } /* adjust if header taller */
   [id] { scroll-margin-top: var(--header-offset); }
   html { scroll-behavior: smooth; }
+
+  /* badge styles for offer labels */
+  .img-wrap { position: relative; overflow: hidden; }
+  .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    z-index: 5;
+    white-space: nowrap;
+    transform-origin: 100% 0%;
+  }
+  /* existing exclusive/limited badge style (kept similar to original but without exclamation) */
+  .limited-badge {
+    background: linear-gradient(135deg,#ff6b6b,#ff4d4d);
+    color: #fff;
+  }
+  /* green "popular" badge */
+  .badge-popular {
+    background: linear-gradient(135deg,#52c41a,#239a0b);
+    color: #fff;
+  }
+
+  /* small-screen tweak */
+  @media (max-width: 480px){
+    .badge { font-size: 0.75rem; padding: 5px 8px; top: 8px; right: 8px; }
+  }
   </style>
 </head>
 <body>
@@ -75,6 +107,7 @@
           <article class="price-card">
             <div class="img-wrap">
               <img src="images/discord_mini.png" alt="DISCORD MINI">
+              <div class="badge badge-popular" aria-hidden="true">POPULARNE🔥</div>
             </div>
             <div class="price-meta">
               <div class="title">DISCORD MINI</div>
@@ -112,7 +145,7 @@
             <div class="img-wrap">
               <img src="images/discord_big.png" alt="DISCORD BIG">
             
-            <div class="limited-badge" aria-hidden="true">OFERTA EKSKLUZYWNA !</div>
+            <div class="limited-badge" aria-hidden="true">OFERTA EKSKLUZYWNA</div>
 </div>
             <div class="price-meta">
               <div class="title">DISCORD BIG</div>
