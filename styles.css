@@ -107,7 +107,7 @@
 
 
 /* Added limited-offer badge */
-.price-card .img-wrap { position: relative; }
+.price-card .img-wrap { position: relative; overflow: visible; }
 
 .limited-badge {
   position: absolute;
@@ -146,4 +146,46 @@
   0% { transform: translateY(0) rotate(-6deg); }
   50% { transform: translateY(-8px) rotate(-6deg); }
   100% { transform: translateY(0) rotate(-6deg); }
+}
+
+/* Popular badge base + variant */
+.badge {
+  position:absolute;
+  top:8px;
+  left:8px; /* left corner */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 14px;
+  border-radius:20px;
+  font-weight:800;
+  font-size:0.85rem;
+  line-height:1;
+  white-space:nowrap;
+  z-index:12; /* above limited-badge */
+  pointer-events:none; /* so image/buttons stay clickable */
+  box-shadow:0 6px 18px rgba(0,0,0,0.22);
+}
+
+.badge-popular{
+  color:#fff;
+  background:linear-gradient(135deg,#52c41a,#239a0b);
+  transform: translateY(0) rotate(-12deg);
+  animation: floaty 3s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%{ transform: translateY(0) rotate(-12deg); }
+  50%{ transform: translateY(-10px) rotate(-12deg); }
+  100%{ transform: translateY(0) rotate(-12deg); }
+}
+
+/* Discord icon bottom-left (above footer) */
+.disc-icon-wrap{ position:fixed; left:12px; bottom:56px; z-index:50; }
+.disc-icon-wrap a img{ width:56px; height:56px; display:block; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.35); transition: transform .18s ease, box-shadow .18s ease; }
+.disc-icon-wrap a:hover img{ transform: translateY(-6px) scale(1.06); box-shadow:0 16px 40px rgba(0,0,0,0.45); }
+
+@media (max-width:480px){
+  .disc-icon-wrap{ left:10px; bottom:72px; }
+  .disc-icon-wrap a img{ width:44px; height:44px; }
 }
