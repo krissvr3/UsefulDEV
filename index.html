@@ -114,7 +114,7 @@
           <h1>Świetny start dla Twojego projektu — gotowe index.html</h1>
           <p class="lead">Responsywna, dostępna i estetyczna strona startowa. Używaj jako szablonu lub edytuj dowolnie — wszystkie style i skrypty są w tym pliku.</p>
           <div class="cta">
-            <a class="btn" id="discordBtn" href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer">Skontaktuj się</a>
+            <button class="btn" id="discordBtn" type="button" data-href="https://discord.gg/your-invite">Skontaktuj się</button>
             <a class="btn ghost" href="#features">Zobacz funkcje</a>
           </div>
         </div>
@@ -252,7 +252,7 @@
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       });
 
-      // Prostota: smooth scroll dla kotwic
+      // Prostota: smooth scroll dla kotwic (tylko dla href zaczynających się od '#')
       document.querySelectorAll('a[href^="#"]').forEach(a=>{
         a.addEventListener('click', (e)=>{
           const href = a.getAttribute('href');
@@ -292,19 +292,28 @@
         formMsg.textContent = '';
       });
 
-      // Discord / potwierdzenie przejścia
+      // Discord / potwierdzenie przejścia - używamy buttona aby uniknąć kolizji z innymi handlerami
       const discordBtn = document.getElementById('discordBtn');
       if(discordBtn){
         discordBtn.addEventListener('click', (e)=>{
-          // Zapytaj użytkownika o potwierdzenie przed przejściem
+          // Zapobiegamy propagacji i wywołaniu innych handlerów (np. globalnych na linkach)
           e.preventDefault();
+          e.stopImmediatePropagation();
+          e.stopPropagation();
+
+          const href = discordBtn.dataset.href || discordBtn.getAttribute('data-href');
+          if(!href){
+            alert('Brak linku do Discorda — podmień data-href w HTML.');
+            return;
+          }
+
           const ok = confirm('Czy chcesz przejść na nasz serwer Discord?
 (Zostaniesz przekierowany/a na stronę zewnętrzną)');
           if(ok){
-            // Otwiera w nowej karcie — podmień link na swój zaproszenie Discord
-            window.open(discordBtn.href, '_blank', 'noopener');
+            // Otwiera w nowej karcie
+            window.open(href, '_blank', 'noopener');
           }
-        });
+        }, {capture: true});
       }
 
     })();
